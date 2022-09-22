@@ -12,18 +12,19 @@ const {
 // Middlewares
 const { protectSession } = require('../middlewares/auth.middlewares');
 const { consoleExists } = require('../middlewares/consoles.middleware');
+const { createConsoleValidators} = require('../middlewares/validators.middlewares')
 
-const gamesRouter = express.Router();
+const consoleRouter = express.Router();
 
-gamesRouter.get('/', getAllConsoles);
+consoleRouter.get('/', getAllConsoles);
 
-gamesRouter.use(protectSession);
+consoleRouter.use(protectSession);
 
-gamesRouter.post('/', createConsole);
+consoleRouter.post('/', createConsoleValidators, createConsole);
 
-gamesRouter.patch('/:id', consoleExists, updateConsole);
+consoleRouter.patch('/:id', consoleExists, updateConsole);
 
-gamesRouter.delete('/:id', consoleExists, deleteConsole);
+consoleRouter.delete('/:id', consoleExists, deleteConsole);
 
 
-module.exports = { gamesRouter };
+module.exports = { consoleRouter };

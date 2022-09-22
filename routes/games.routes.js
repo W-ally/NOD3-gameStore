@@ -12,6 +12,7 @@ const {
 // Middlewares
 const { protectSession } = require('../middlewares/auth.middlewares');
 const { gameExists } = require('../middlewares/games.middlewares');
+const { createGameValidators } = require('../middlewares/validators.middlewares');
 
 const gamesRouter = express.Router();
 
@@ -19,7 +20,7 @@ gamesRouter.get('/', getAllGames);
 
 gamesRouter.use(protectSession);
 
-gamesRouter.post('/', createGame);
+gamesRouter.post('/',createGameValidators, createGame);
 
 gamesRouter.patch('/:id', gameExists, updateGame);
 

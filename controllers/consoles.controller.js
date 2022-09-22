@@ -1,4 +1,6 @@
 const { Console } = require('../models/console.model');
+const { Game } = require('../models/game.model');
+
 const { catchAsync } = require('../utils/catchAsync.util');
 
 const createConsole =  catchAsync( async (req, res, next) => {
@@ -11,16 +13,18 @@ const createConsole =  catchAsync( async (req, res, next) => {
         data: {console},
   })
 });
+const getAllConsoles = catchAsync(async (req, res, next) => {
+	const consoles = await Console.findAll({
+		where: { status: 'active' },
+		include: { model: Game, through: { attributes: [] } },
+	});
 
-const getAllConsoles = catchAsync( async (req, res, next) => {
-   const console = await Console.findAll({where:{ status:'active'}});
-
-   res.status(200).json({
-     status: 'success',
-     data: {console}
-   })
-
+	res.status(200).json({
+		status: 'success',
+		data: { consoles },
+	});
 });
+
 const updateConsole =  catchAsync( async (req, res, next) => {
   const { console } = req;
   const {name} = req;
@@ -29,14 +33,16 @@ const updateConsole =  catchAsync( async (req, res, next) => {
 
   res.status(200).json({
     status:'success',
-    data:{console }
-  })
-});
+    data:{console}
+    });
+  
+  });
+ 
 const deleteConsole =  catchAsync( async (req, res, next) => {
 
   const {console}= req;
 
-  await console.update({ status: 'deleted' });
+  await Console.update({ status: 'deleted' });
 
 	res.status(200).json({
 		status: 'success',

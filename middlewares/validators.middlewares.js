@@ -37,4 +37,18 @@ const createUserValidators = [
 	checkValidations,
 ];
 
-module.exports = { createUserValidators };
+const createConsoleValidators = [
+	body('name').notEmpty().withMessage('Name cannot be empty'),
+	body('company').notEmpty().withMessage('Company cannot be empty'),
+	
+	checkValidations,
+];
+
+const createGameValidators = [
+	body('title').notEmpty().withMessage('Title cannot be empty'),
+	body('genre').notEmpty().withMessage('Genre cannot be empty'),
+	
+	checkValidations,
+];
+
+module.exports = { createUserValidators,createConsoleValidators,createGameValidators };

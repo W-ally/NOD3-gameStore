@@ -14,7 +14,7 @@ const { userExists } = require('../middlewares/users.middlewares');
 const {
 	protectSession,
 	protectUsersAccount,
-	protectAdmin,
+	
 } = require('../middlewares/auth.middlewares');
 const {
 	createUserValidators,
